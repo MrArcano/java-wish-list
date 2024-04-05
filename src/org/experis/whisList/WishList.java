@@ -43,11 +43,8 @@ public class WishList {
     }
 
     private static List<Gift> readFromFile() {
-
         List<Gift> wishlist = new ArrayList<>();
-
         try(Scanner fileReader = new Scanner(new File("./resources/data.txt"))) {
-
             while (fileReader.hasNextLine()) {
                 wishlist.add(new Gift(fileReader.nextLine()));
             }
