@@ -1,7 +1,6 @@
 package org.experis.whisList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,10 +15,16 @@ public class WishList {
         List<Gift> wishlist = readFromFile();
 
         boolean continueAdding = true;
-            while(continueAdding) {
+        while (continueAdding) {
             System.out.print("Enter the name of the gift to add to the list: ");
             String giftName = scanner.nextLine();
-            Gift gift = new Gift(giftName);
+            Gift gift = null;
+            try {
+                gift = new Gift(giftName);
+            } catch (RuntimeException e) {
+                System.out.println("Invalid gift name. Please enter a valid name.");
+                continue;
+            }
             wishlist.add(gift);
             System.out.println("Length of the list: " + wishlist.size());
             System.out.print("Do you want to add another gift? (y/n): ");
@@ -37,14 +42,14 @@ public class WishList {
 
         // Print the sorted list
         System.out.println("\nSorted list of gifts:");
-        for(Gift gift : wishlist) {
-            System.out.println(gift.getName());
+        for (Gift gift : wishlist) {
+            System.out.println(gift);
         }
     }
 
     private static List<Gift> readFromFile() {
         List<Gift> wishlist = new ArrayList<>();
-        try(Scanner fileReader = new Scanner(new File("./resources/data.txt"))) {
+        try (Scanner fileReader = new Scanner(new File("./resources/data.txt"))) {
             while (fileReader.hasNextLine()) {
                 wishlist.add(new Gift(fileReader.nextLine()));
             }
@@ -56,8 +61,7 @@ public class WishList {
     }
 
     private static void saveToFile(List<Gift> wishlist) {
-
-        try(FileWriter fileWriter = new FileWriter(new File("./resources/data.txt"))){
+        try (FileWriter fileWriter = new FileWriter(new File("./resources/data.txt"))) {
             for (Gift gift : wishlist) {
                 fileWriter.write(gift.getName() + "\n"); // Write each gift name followed by a newline character
             }
