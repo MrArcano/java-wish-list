@@ -2,12 +2,13 @@ package org.experis.whisList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class WishList {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Gift> wishlist = new ArrayList<>();
+        List<Gift> wishlist = new ArrayList<>();
 
         boolean continueAdding = true;
             while(continueAdding) {
@@ -24,11 +25,11 @@ public class WishList {
         }
 
         // Sort the list
-            Collections.sort(wishlist, (g1, g2) -> g1.getName().compareTo(g2.getName()));
+        Collections.sort(wishlist);
 
         // Print the sorted list
-            System.out.println("\nSorted list of gifts:");
-            for(Gift gift : wishlist) {
+        System.out.println("\nSorted list of gifts:");
+        for(Gift gift : wishlist) {
             System.out.println(gift.getName());
         }
     }

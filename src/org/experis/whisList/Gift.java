@@ -1,6 +1,6 @@
 package org.experis.whisList;
 
-public class Gift {
+public class Gift implements Comparable<Gift> {
     private String name;
 
     public Gift(String name) {
@@ -9,5 +9,10 @@ public class Gift {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Gift o) {
+        return this.getName().compareTo(o.getName());
     }
 }
